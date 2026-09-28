@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Details from "../components/Details.astro";
+
+const title = "Home";
+---
+
+<BaseLayout title={title}>
+  <!-- Everything inside of the element will get inserted in to the <slot> in the layout. -->
+  <Details
+    summary="Astro Component"
+    class="some-class"
+    aria-label="component example"
+  >
+    <p>Child content</p>
+  </Details>
+</BaseLayout>

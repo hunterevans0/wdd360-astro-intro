@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Cart";
+---
+
+<BaseLayout title={title}>
+  <h2>Your Cart</h2>
+  <section id="cart"></section>
+</BaseLayout>
+
+<!-- Only use src here: Astro processes the script and adds type="module" for us. -->
+<script src="../../js/cart.js"></script>

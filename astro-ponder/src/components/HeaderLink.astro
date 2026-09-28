@@ -1,0 +1,37 @@
+---
+// Astro keeps track of the current URL. Compare it to the href to know if this link is active.
+const { href, class: className, ...props } = Astro.props;
+const { pathname } = Astro.url;
+
+// strip trailing slashes so "/posts" and "/posts/" match
+const clean = (path: string) => (path.length > 1 ? path.replace(/\/$/, "") : path);
+const isActive =
+  clean(href) === clean(pathname) ||
+  (href !== "/" && clean(pathname).startsWith(clean(href) + "/"));
+---
+
+<a
+  href={href}
+  class:list={[className, { active: isActive }]}
+  aria-current={isActive ? "page" : undefined}
+  {...props}
+>
+  <slot />
+</a>
+
+<style>
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 0.4em 0.8em;
+    border-radius: 4px;
+  }
+  a:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  a.active {
+    font-weight: bold;
+    background: white;
+    color: #3b2a80;
+  }
+</style>

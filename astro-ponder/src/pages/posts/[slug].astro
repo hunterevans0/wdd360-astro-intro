@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// Tell Astro which pages to build: one for each post in the collection.
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+// render() turns the markdown body into a component we can drop in the template
+const { Content } = await render(post);
+---
+
+<BaseLayout title={post.data.title}>
+  <article>
+    <h2>{post.data.title}</h2>
+    <p><em>{post.data.pubDate}</em></p>
+    <Content />
+  </article>
+</BaseLayout>
